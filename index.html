@@ -3,40 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KOPI-SEARCH // LEAN</title>
+    <title>KOPI-SEARCH // SOVEREIGN</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <nav class="nb">
-        <div class="br">
-            <div class="dt"></div>
-            <span>KOPI_SEARCH <span class="dm">/ LITE</span></span>
+    <nav class="navbar">
+        <div class="brand">
+            <div class="dot"></div>
+            <span>KOPI_SEARCH <span class="dim">/ S.O.P</span></span>
         </div>
-        <div class="st" id="st">85°C // OPTIMAL</div>
+        <div class="status" id="status">SYNC_ACTIVE // 85°C</div>
     </nav>
 
-    <main class="ct">
-        <div class="hr">
-            <h1>KOPI<span class="ac">.</span></h1>
-            <p>Sovereign Search Node.</p>
-        </div>
+    <main class="container">
+        <header class="hero">
+            <div class="label">[ NEURAL_GENESIS_V2 ]</div>
+            <h1>KOPI<span class="glow-text">.</span></h1>
+            <p class="subtitle">Sovereign digital architecture for high-velocity identity verification.</p>
+        </header>
 
-        <div class="sb">
-            <input type="text" id="si" placeholder="CARI..." onkeypress="hK(event)" autocomplete="off">
-            <button onclick="exS()" id="sb">GO</button>
-        </div>
+        <section class="search-area">
+            <div class="search-box">
+                <span class="prefix">></span>
+                <input type="text" id="searchInput" placeholder="ENTER ASSET ID OR KEYWORD..." onkeypress="handleKey(event)">
+                <button onclick="runSearch()" id="searchBtn">EXECUTE</button>
+            </div>
+        </section>
 
-        <div id="rs" class="rs">
-            <div class="cd">
-                <span class="lb">[ STATUS ]</span>
-                <div id="out">Sedia untuk ekstraksi...</div>
+        <div id="results" class="results-grid">
+            <div class="card card-main">
+                <span class="card-label">IDENTITY_REPORT</span>
+                <div id="output" class="output-text">Awaiting neural audit sequence...</div>
+            </div>
+            
+            <div class="card-group">
+                <div class="card">
+                    <span class="card-label">VELOCITY</span>
+                    <div class="val"><span id="vVal">0</span><span class="unit">%</span></div>
+                    <div class="bar-bg"><div id="bar" class="bar-fill"></div></div>
+                </div>
+                <div class="card">
+                    <span class="card-label">INTEGRITY</span>
+                    <div class="val">99<span class="unit">%</span></div>
+                </div>
             </div>
         </div>
     </main>
 
-    <!-- Floating Theme Toggle -->
-    <button class="tg" onclick="tT()" title="Theme">☕</button>
+    <!-- Floating Theme Toggle (Minimalist & Glow) -->
+    <button class="theme-btn" onclick="toggleTheme()" title="Switch Visual Protocol">☕</button>
 
     <script src="script.js"></script>
 </body>
