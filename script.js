@@ -19,19 +19,26 @@ function handleKey(e) { if (e.key === 'Enter') runSearch(); }
 
 async function runSearch() {
     const input = document.getElementById('searchInput').value.trim();
-    const results = document.getElementById('results');
-    const out = document.getElementById('output');
+    const results = document.getElementById('results'); // Container audit/progress
+    const out = document.getElementById('output');    // Lokasi text audit
     const btn = document.getElementById('searchBtn');
 
     if (!input) return;
 
+    // Inisialisasi UI
     btn.innerText = "NEURAL_LINKING...";
     btn.disabled = true;
     results.style.display = 'block';
+    
+    // Reset output & sembunyikan grid lama jika ada
     out.innerHTML = `<div style="color:var(--accent); font-size:11px; letter-spacing:1px;">> INITIATING_CRAWL: ${input.toUpperCase()}...</div>`;
+    
+    // Pastikan ada elemen grid dalam HTML anda, jika tiada kita cipta secara dinamik
+    let grid = document.getElementById('results-grid');
+    if (grid) grid.style.display = 'none';
 
     try {
-        // Panggil Serverless Function anda sendiri (api/search.js)
+        // 1. Panggil Serverless Function (Vercel)
         const response = await fetch(`/api/search?query=${encodeURIComponent(input)}`);
         const data = await response.json();
         
@@ -39,20 +46,42 @@ async function runSearch() {
 
         const aiResponse = data.candidates[0].content.parts[0].text;
 
+        // 2. Simulasi Proses "Neural Audit"
         setTimeout(() => {
             btn.innerText = "EXECUTE";
             btn.disabled = false;
+            
+            // Update Progress Bar
             const v = Math.floor(Math.random() * 15 + 85);
             document.getElementById('vVal').innerText = v;
             document.getElementById('bar').style.width = v + '%';
 
+            // Paparkan Status Audit
             out.innerHTML = `
-                <div style="font-size:16px; color:var(--accent); margin-bottom:12px; font-weight:bold;">> ACCESS_GRANTED: SEARCH_RESULT</div>
-                <div style="font-size:13px; color:var(--text); line-height:1.7; white-space: pre-wrap; font-family:inherit;">${aiResponse}</div>
-                <div style="margin-top:20px; font-size:9px; color:var(--dim); border-top:1px dotted var(--border); padding-top:10px;">
-                    SOURCE: VERCEL_EDGE_NODE // STATUS: SECURE_LINK_ESTABLISHED
-                </div>
+                <div style="font-size:16px; color:var(--accent); margin-bottom:12px; font-weight:bold;">> ACCESS_GRANTED: DATA_STREAM_STABLE</div>
+                <div style="font-size:12px; color:var(--dim); margin-bottom:10px;">ANALYSIS_COMPLETE: Link established via Vercel Edge Node.</div>
             `;
+
+            // 3. Bina Grid "Stem Digital" secara dinamik
+            // Kita pecahkan respon AI kepada beberapa blok untuk nampak lebih 'High-Tech'
+            const segments = aiResponse.split('\n').filter(t => t.length > 5);
+            
+            // Jika grid belum ada dalam HTML, kita selitkan di bawah 'output'
+            if (!grid) {
+                grid = document.createElement('div');
+                grid.id = 'results-grid';
+                out.after(grid);
+            }
+
+            grid.style.display = 'grid';
+            grid.innerHTML = segments.map((text, index) => `
+                <div class="stem-card" style="animation: fadeIn ${0.3 + (index * 0.1)}s ease forwards;">
+                    <span class="stem-url">KOSES/NODE/0${index + 1}</span>
+                    <div class="stem-title">DATA_FRAGMENT_${index + 1}</div>
+                    <p class="stem-desc">${text}</p>
+                </div>
+            `).join('');
+
             window.scrollTo({ top: results.offsetTop - 50, behavior: 'smooth' });
         }, 800);
 
@@ -60,7 +89,7 @@ async function runSearch() {
         console.error("Node Error:", error);
         btn.innerText = "RETRY";
         btn.disabled = false;
-        out.innerHTML = `<div style="color:#ff5555; font-size:11px;">> ERROR: SECURE_CONNECTION_FAILED. Sila semak konfigurasi Vercel anda.</div>`;
+        out.innerHTML = `<div style="color:#ff5555; font-size:11px;">> ERROR: SECURE_CONNECTION_FAILED. Semak sambungan Vercel/API Key.</div>`;
     }
 }
 
