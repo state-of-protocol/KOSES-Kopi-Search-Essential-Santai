@@ -1,0 +1,20 @@
+[
+  {
+    "country": "Malaysia",
+    "flag": "🇲🇾",
+    "states": [
+      {"name": "Selangor", "code": "SGR"},
+      {"name": "Kuala Lumpur", "code": "KUL"},
+      {"name": "Johor", "code": "JHR"}
+    ]
+  },
+  {
+    "country": "Indonesia",
+    "flag": "🇮🇩",
+    "states": [
+      {"name": "Jakarta", "code": "JKT"},
+      {"name": "Bali", "code": "BAL"},
+      {"name": "Bandung", "code": "BDO"}
+    ]
+  }
+]
