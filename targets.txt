@@ -1,0 +1,73 @@
+# ==========================================
+# KOSES ARCHIVER - GLOBAL TARGETS INDEX
+# FORMAT: URL | BAHASA
+# ==========================================
+
+# --- KERAJAAN & AGENSI (MALAYSIA) ---
+https://www.malaysia.gov.my | BM
+https://www.bernama.com/bm | BM
+https://www.moh.gov.my | BM
+https://www.moe.gov.my | BM
+https://www.jpj.gov.my | BM
+https://www.hasil.gov.my | BM
+https://www.kwsp.gov.my | BM
+https://www.bursamalaysia.com | BM
+
+# --- BERITA & MEDIA (MALAYSIA) ---
+https://www.bharian.com.my | BM
+https://www.hmetro.com.my | BM
+https://www.sinarharian.com.my | BM
+https://www.utusan.com.my | BM
+https://www.astroawani.com | BM
+https://www.thestar.com.my | EN
+https://www.malaysiakini.com | BM
+https://www.soyacincau.com | BM
+https://www.amanz.my | BM
+
+# --- BERITA & MAKLUMAT (GLOBAL) ---
+https://www.bbc.com/news | EN
+https://www.reuters.com | EN
+https://www.cnn.com | EN
+https://www.nytimes.com | EN
+https://www.theguardian.com | EN
+https://www.aljazeera.net | AR
+https://www.rt.com | RU
+https://www.xinhuanet.com | ZH
+https://www.lemonde.fr | FR
+https://www.dw.com | DE
+https://www.asahi.com | JA
+https://www.indiatimes.com | HI
+https://www.straitstimes.com | EN
+
+# --- TEKNOLOGI & GAJET ---
+https://www.lowyat.net | EN
+https://www.techcrunch.com | EN
+https://www.wired.com | EN
+https://www.gsmarena.com | EN
+https://www.engadget.com | EN
+https://www.theverge.com | EN
+
+# --- PENDIDIKAN & RUJUKAN ---
+https://www.wikipedia.org | EN
+https://www.britannica.com | EN
+https://www.nationalgeographic.com | EN
+https://www.khanacademy.org | EN
+https://www.coursera.org | EN
+https://www.quora.com | EN
+
+# --- EKONOMI & KEWANGAN ---
+https://www.bloomberg.com | EN
+https://www.wsj.com | EN
+https://www.forbes.com | EN
+https://www.ft.com | EN
+
+# --- SUKAN ---
+https://www.espn.com | EN
+https://www.goal.com | EN
+https://www.fifa.com | EN
+https://www.skysports.com | EN
+
+# --- MEDIA SOSIAL & ENJIN CARIAN ---
+https://www.google.com | EN
+https://www.bing.com | EN
+https://www.reddit.com | EN
