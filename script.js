@@ -2,7 +2,7 @@
  * KONFIGURASI SISTEM
  * Masukkan kunci anda di sini.
  */
-const GEMINI_API_KEY = "AIzaSyBdq7UBULBuL9iT-oGDmu5aEYDiV1KKQ1E"; // Gunakan Key anda yang sah
+const GEMINI_API_KEY = "API.KEY"; // Gunakan Key anda yang sah
 
 /** 
  * PROTOKOL TEMA (THEME LOGIC) 
