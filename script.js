@@ -69,9 +69,9 @@ async function runSearch() {
     btn.disabled = true;
     btn.innerText = currentEngine === 'AI' ? "LINKING..." : "CRAWLING...";
     results.style.display = 'block';
+    
     if (grid) {
         grid.style.display = 'none';
-        // Tambah class untuk styling grid mengikut mode
         grid.className = currentEngine === 'AI' ? '' : 'web-active-result';
     }
 
@@ -80,19 +80,17 @@ async function runSearch() {
     try {
         if (currentEngine === 'WEB') {
             /**
-             * MODE: THE BIG FOUR (Spider / Web Index)
-             * Di sini anda akan sambungkan ke Meilisearch atau data/web_index.json
+             * MODE: WEB INDEX (KOSES SPIDER DATA)
+             * Mencari data dari fail JSON hasil crawler Python
              */
-            await new Promise(r => setTimeout(r, 1200)); // Simulasi spider crawling
+            const webResults = await fetchWebData(input);
             
-            // Contoh data statik (Simulasi hasil crawl dari Python Spider)
-            const webData = [
-                { title: "THE_BIG_FOUR_INDEX", desc: `Searching local database for "${input}". Spider node connected.`, url: "KOSES/SPIDER/01" },
-                { title: "LIBRARY_ACCESS", desc: "Global data fragment found in indexed repository. Integrity 99%.", url: "KOSES/SPIDER/02" }
-            ];
-            
-            renderGrid(webData);
-            updateAuditUI("WEB_INDEX_SUCCESS", "Data retrieved from local spider library.");
+            if (webResults.length > 0) {
+                renderGrid(webResults);
+                updateAuditUI("WEB_INDEX_SUCCESS", `${webResults.length} relevant nodes retrieved from archive.`);
+            } else {
+                throw new Error("NO_MATCHING_DATA_FOUND_IN_ARCHIVE");
+            }
 
         } else {
             /**
@@ -106,43 +104,94 @@ async function runSearch() {
             
             // Tukar text AI kepada format Stem Card
             const segments = aiResponse.split('\n').filter(t => t.length > 10).map((text, i) => ({
-                title: `DATA_FRAGMENT_0${i+1}`,
+                title: `NEURAL_FRAGMENT_0${i+1}`,
                 desc: text,
-                url: `NEURAL/NODE/0${i+1}`
+                url: `NEURAL/NODE/0${i+1}`,
+                lang: "AI"
             }));
 
             renderGrid(segments);
             updateAuditUI("ACCESS_GRANTED", "Neural link established via Vercel Edge.");
         }
     } catch (error) {
-        out.innerHTML = `<div style="color:#ff5555; font-size:11px;">> ERROR: ${error.message}</div>`;
+        out.innerHTML = `<div style="color:#ff5555; font-size:11px;">> SYSTEM_FAILURE: ${error.message}</div>`;
+        if (grid) grid.style.display = 'none';
     } finally {
         btn.disabled = false;
         btn.innerText = "EXECUTE";
     }
 }
 
+/**
+ * 4.1 WEB ARCHIVE FETCH LOGIC
+ * Fungsi untuk akses data fizikal daripada spider
+ */
+async function fetchWebData(keyword) {
+    try {
+        const now = new Date();
+        const dd = String(now.getDate()).padStart(2, '0');
+        const mm = String(now.getMonth() + 1).padStart(2, '0');
+        const yyyy = now.getFullYear();
+        const dateFolder = `${dd}_${mm}_${yyyy}`;
+
+        // PENTING: Nama fail JSON mesti sepadan dengan output Python anda
+        // Anda boleh tukar 'web_index_multilang_12.38_PM.json' kepada nama fail terbaru anda
+        const targetPath = `./data/${dateFolder}/web_index_multilang_12.38_PM.json`;
+        
+        const response = await fetch(targetPath);
+        if (!response.ok) throw new Error("ARCHIVE_NODE_OFFLINE");
+        
+        const allData = await response.json();
+        
+        // Tapis data berdasarkan input user
+        const filtered = allData.filter(item => 
+            item.title.toLowerCase().includes(keyword.toLowerCase()) || 
+            item.desc.toLowerCase().includes(keyword.toLowerCase())
+        );
+
+        return filtered.map(item => ({
+            title: item.title,
+            desc: item.desc,
+            url: item.url,
+            lang: item.lang 
+        }));
+
+    } catch (e) {
+        console.error("Web Fetch Error:", e);
+        return [];
+    }
+}
+
 // Helper: Kemaskini Progress Bar & Text Audit
 function updateAuditUI(status, subtext) {
     const v = Math.floor(Math.random() * 15 + 85);
-    document.getElementById('vVal').innerText = v;
-    document.getElementById('bar').style.width = v + '%';
-    document.getElementById('output').innerHTML = `
+    const vVal = document.getElementById('vVal');
+    const bar = document.getElementById('bar');
+    const output = document.getElementById('output');
+
+    if(vVal) vVal.innerText = v;
+    if(bar) bar.style.width = v + '%';
+    
+    output.innerHTML = `
         <div style="font-size:16px; color:var(--accent); margin-bottom:8px; font-weight:bold;">> ${status}</div>
         <div style="font-size:11px; color:var(--dim);">${subtext}</div>
     `;
 }
 
-// Helper: Render Stem Cards ke dalam Grid
+// Helper: Render Stem Cards ke dalam Grid (Dengan Badge Bahasa & Link)
 function renderGrid(items) {
     const grid = document.getElementById('results-grid');
     if (!grid) return;
     grid.style.display = 'grid';
     grid.innerHTML = items.map((item, index) => `
         <div class="stem-card" style="animation: fadeIn ${0.3 + (index * 0.1)}s ease forwards;">
-            <span class="stem-url">${item.url}</span>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <span class="stem-url">${item.url.substring(0, 25)}...</span>
+                <span style="font-size:9px; background:var(--accent); color:black; padding:2px 5px; border-radius:3px; font-weight:bold;">${item.lang || 'DATA'}</span>
+            </div>
             <div class="stem-title">${item.title}</div>
             <p class="stem-desc">${item.desc}</p>
+            <a href="${item.url}" target="_blank" style="color:var(--accent); font-size:10px; text-decoration:none; margin-top:10px; display:block; border-top:1px solid #333; padding-top:5px;">[ OPEN_SOURCE_LINK ]</a>
         </div>
     `).join('');
 }
@@ -160,9 +209,11 @@ async function searchLocation() {
         const responses = await Promise.all(continentFiles.map(f => fetch(f).then(r => r.ok ? r.json() : [])));
         let matches = [];
         responses.flat().forEach(country => {
-            country.states.filter(s => s.name.toUpperCase().includes(input)).forEach(s => {
-                matches.push({ name: s.name, country: country.country, flag: country.flag });
-            });
+            if(country.states) {
+                country.states.filter(s => s.name.toUpperCase().includes(input)).forEach(s => {
+                    matches.push({ name: s.name, country: country.country, flag: country.flag });
+                });
+            }
         });
 
         if (matches.length > 0) {
@@ -187,7 +238,7 @@ async function getWeather() {
     const city = document.getElementById('cityInput').value.trim();
     if (!city) return;
     const btn = document.querySelector('.city-protocol button');
-    btn.innerText = "...";
+    if(btn) btn.innerText = "...";
     try {
         const res = await fetch(`https://wttr.in/${city}?format=j1`);
         const data = await res.json();
@@ -198,8 +249,11 @@ async function getWeather() {
         
         const timeMatch = data.current_condition[0].localObsDateTime.match(/(\d{1,2}):(\d{2})\s+(AM|PM)/);
         if (timeMatch) document.getElementById('localTime').innerText = `${timeMatch[1].padStart(2, '0')}:${timeMatch[2]} ${timeMatch[3]}`;
-    } catch (e) { document.getElementById('wDesc').innerText = "NODE_OFFLINE"; }
-    finally { btn.innerText = "FETCH"; }
+    } catch (e) { 
+        const wDesc = document.getElementById('wDesc');
+        if(wDesc) wDesc.innerText = "NODE_OFFLINE"; 
+    }
+    finally { if(btn) btn.innerText = "FETCH"; }
 }
 
 /** 
@@ -211,8 +265,15 @@ setInterval(() => {
     if (el) el.innerText = `SYNC_ACTIVE // ${t} // 85°C`;
 }, 1000);
 
-document.getElementById('cityInput').addEventListener('input', searchLocation);
+// Event Listeners
+const cityInput = document.getElementById('cityInput');
+if(cityInput) {
+    cityInput.addEventListener('input', searchLocation);
+}
+
 document.addEventListener('click', (e) => {
-    if (!e.target.closest('.city-protocol')) document.getElementById('citySuggestions').style.display = 'none';
+    const sug = document.getElementById('citySuggestions');
+    if (sug && !e.target.closest('.city-protocol')) sug.style.display = 'none';
 });
+
 function handleCityKey(e) { if (e.key === 'Enter') getWeather(); }
