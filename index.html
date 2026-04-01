@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KOPI-SEARCH // SOVEREIGN</title>
-    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/form-card.css">
+    <link rel="stylesheet" href="css/navigation.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -22,24 +27,39 @@
         </div>
     </main>
 
-    <button class="theme-btn" onclick="toggleTheme()">☕</button>
+    <button class="theme-btn" onclick="toggleTheme()" title="Switch Visual Protocol">☕</button>
 
     <script src="script.js"></script>
     <script>
-        // FUNGSI LOAD COMPONENT (Sangat Penting)
+        /**
+         * KOSES COMPONENT LOADER
+         * Memuatkan fail HTML luaran ke dalam kontena yang ditetapkan.
+         */
         async function loadComponent(id, file) {
-            const response = await fetch(`components/${file}`);
-            const data = await response.text();
-            document.getElementById(id).innerHTML = data;
+            try {
+                const response = await fetch(`components/${file}`);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const data = await response.text();
+                document.getElementById(id).innerHTML = data;
+            } catch (error) {
+                console.error(`Gagal memuatkan komponen [${file}]:`, error);
+                document.getElementById(id).innerHTML = `<p style="color:red; font-size:10px;">ERROR_LOADING_COMPONENT: ${file}</p>`;
+            }
         }
 
-        // Jalankan loading semua komponen serentak
-        window.onload = () => {
-            loadComponent('nav-container', 'navbar.html');
-            loadComponent('hero-container', 'hero.html');
-            loadComponent('search-container', 'search.html');
-            loadComponent('weather-container', 'weather.html');
-            loadComponent('audit-container', 'audit.html');
+        // Jalankan loading semua komponen sebaik sahaja tetingkap dimuatkan
+        window.onload = async () => {
+            // Menggunakan Promise.all untuk kelajuan loading serentak
+            await Promise.all([
+                loadComponent('nav-container', 'navbar.html'),
+                loadComponent('hero-container', 'hero.html'),
+                loadComponent('search-container', 'search.html'),
+                loadComponent('weather-container', 'weather.html'),
+                loadComponent('audit-container', 'audit.html')
+            ]);
+
+            // Inisialisasi fungsi JS tambahan jika perlu selepas komponen wujud
+            console.log("KOPI_SEARCH: All components synchronized.");
         };
     </script>
 </body>
