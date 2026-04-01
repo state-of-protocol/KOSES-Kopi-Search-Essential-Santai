@@ -29,27 +29,29 @@
 
     <button class="theme-btn" onclick="toggleTheme()" title="Switch Visual Protocol">☕</button>
 
-    <script src="script.js"></script>
+    <script type="module" src="js/main.js"></script>
+
     <script>
         /**
          * KOSES COMPONENT LOADER
-         * Memuatkan fail HTML luaran ke dalam kontena yang ditetapkan.
+         * Memuatkan fail HTML luaran ke dalam ID yang ditentukan.
          */
         async function loadComponent(id, file) {
             try {
                 const response = await fetch(`components/${file}`);
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                if (!response.ok) throw new Error(`Status: ${response.status}`);
                 const data = await response.text();
                 document.getElementById(id).innerHTML = data;
             } catch (error) {
                 console.error(`Gagal memuatkan komponen [${file}]:`, error);
-                document.getElementById(id).innerHTML = `<p style="color:red; font-size:10px;">ERROR_LOADING_COMPONENT: ${file}</p>`;
+                document.getElementById(id).innerHTML = `<div style="color:#ff5555; font-size:10px; padding:10px;">> ERROR_LOADING_NODE: ${file}</div>`;
             }
         }
 
-        // Jalankan loading semua komponen sebaik sahaja tetingkap dimuatkan
+        // Jalankan loading semua komponen serentak sebaik sahaja tetingkap dimuatkan
         window.onload = async () => {
-            // Menggunakan Promise.all untuk kelajuan loading serentak
+            console.log("KOPI_SEARCH: Initiating component sync...");
+            
             await Promise.all([
                 loadComponent('nav-container', 'navbar.html'),
                 loadComponent('hero-container', 'hero.html'),
@@ -58,8 +60,10 @@
                 loadComponent('audit-container', 'audit.html')
             ]);
 
-            // Inisialisasi fungsi JS tambahan jika perlu selepas komponen wujud
-            console.log("KOPI_SEARCH: All components synchronized.");
+            console.log("KOPI_SEARCH: Architecture fully synchronized.");
+            
+            // Dispatch event khas untuk memberitahu main.js bahawa UI sudah sedia
+            window.dispatchEvent(new Event('componentsLoaded'));
         };
     </script>
 </body>
