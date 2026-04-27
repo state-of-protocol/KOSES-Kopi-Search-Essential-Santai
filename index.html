@@ -1,70 +1,208 @@
 <!DOCTYPE html>
-<html lang="ms">
+<html lang="ms" dir="ltr">
 <head>
+    <!-- Essential Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KOPI-SEARCH // SOVEREIGN</title>
+    <meta name="description" content="KOPI-SEARCH: Sovereign digital search architecture. Fast, minimal neural search interface with AI and web spider capabilities. Dark cappuccino & light cream beige themes.">
+    <meta name="keywords" content="search engine, neural AI, web spider, sovereign search, minimal search interface, kopi">
+    <meta name="author" content="State Of Protocol Foundation">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/form-card.css">
-    <link rel="stylesheet" href="css/navigation.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Open Graph (Social Sharing) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="KOPI-SEARCH v1.0.0 - Sovereign Digital Architecture">
+    <meta property="og:description" content="Minimalist search engine combining neural AI and web spider capabilities with sovereign governance.">
+    <meta property="og:url" content="https://state-of-protocol.github.io/KOSES-Kopi-Search-Essential-Santai/">
+    <meta property="og:image" content="https://state-of-protocol.github.io/KOSES-Kopi-Search-Essential-Santai/og-image.png">
+    <meta property="og:site_name" content="KOPI-SEARCH">
     
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="KOPI-SEARCH - Neural Search Interface">
+    <meta name="twitter:description" content="Sovereign search architecture with dual-tone UI and minimalist design.">
+    <meta name="twitter:image" content="https://state-of-protocol.github.io/KOSES-Kopi-Search-Essential-Santai/og-image.png">
+    
+    <!-- Performance & Preload -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://api.example.com">
+    
+    <!-- Stylesheets with importance hints -->
+    <link rel="stylesheet" href="css/base.css" media="screen">
+    <link rel="stylesheet" href="css/form-card.css" media="screen">
+    <link rel="stylesheet" href="css/navigation.css" media="screen">
+    <link rel="stylesheet" href="css/responsive.css" media="(max-width: 768px)">
+    
+    <!-- Font Import -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&display=swap" rel="stylesheet" defer>
+    
+    <!-- Page Title (SEO Critical) -->
+    <title>KOPI-SEARCH v1.0.0 - Sovereign Neural Search Engine | AI & Web Spider</title>
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://state-of-protocol.github.io/KOSES-Kopi-Search-Essential-Santai/">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "KOPI-SEARCH",
+        "url": "https://state-of-protocol.github.io/KOSES-Kopi-Search-Essential-Santai/",
+        "description": "Sovereign neural search interface combining AI and web spider capabilities",
+        "version": "1.0.0",
+        "applicationCategory": "SearchApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "State Of Protocol Foundation",
+            "url": "https://github.com/state-of-protocol"
+        },
+        "datePublished": "2026-04-01",
+        "dateModified": "2026-04-27",
+        "inLanguage": "ms",
+        "isAccessibleForFree": true
+    }
+    </script>
+    
+    <!-- Additional Structured Data for SearchAction -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "url": "https://state-of-protocol.github.io/KOSES-Kopi-Search-Essential-Santai/",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://state-of-protocol.github.io/KOSES-Kopi-Search-Essential-Santai/?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#1a1412">
+    <meta name="color-scheme" content="dark light">
+    
+    <!-- Manifest for PWA -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" href="favicon-32x32.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    
+    <!-- Security Headers Recommendations -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com">
 </head>
-<body>
+<body role="application" aria-label="KOPI-SEARCH Neural Search Interface">
+    <!-- Navigation -->
+    <nav id="nav-container" role="navigation" aria-label="Main navigation"></nav>
 
-    <div id="nav-container"></div>
+    <!-- Main Content -->
+    <main class="container" role="main">
+        <!-- Hero Section -->
+        <header id="hero-container" role="banner" aria-label="Hero section"></header>
+        
+        <!-- Search Interface -->
+        <section id="search-container" aria-label="Search interface" role="search"></section>
+        
+        <!-- Weather Widget -->
+        <aside id="weather-container" aria-label="Weather information"></aside>
 
-    <main class="container">
-        <div id="hero-container"></div>
-        <div id="search-container"></div>
-        <div id="weather-container"></div>
-
-        <div id="results" style="display: none; margin-top: 60px;">
-            <div id="audit-container"></div>
-            <div id="results-grid"></div>
-        </div>
+        <!-- Results Section -->
+        <section id="results" style="display: none; margin-top: 60px;" aria-live="polite" aria-label="Search results">
+            <div id="audit-container" role="status" aria-label="Search audit information"></div>
+            <div id="results-grid" role="region" aria-label="Search results grid"></div>
+        </section>
     </main>
 
-    <button class="theme-btn" onclick="toggleTheme()" title="Switch Visual Protocol">☕</button>
+    <!-- Theme Toggle Button -->
+    <button class="theme-btn" onclick="toggleTheme()" title="Switch Visual Protocol (Dark/Light Mode)" aria-label="Toggle dark and light theme">☕</button>
 
+    <!-- Skip to Content Link (Accessibility) -->
+    <a href="#search-container" class="skip-link">Skip to search</a>
+
+    <!-- Main Module -->
     <script type="module" src="js/main.js"></script>
 
+    <!-- Component Loader -->
     <script>
         /**
          * KOSES COMPONENT LOADER
          * Memuatkan fail HTML luaran ke dalam ID yang ditentukan.
+         * Optimized for performance with error handling and logging.
          */
         async function loadComponent(id, file) {
+            const element = document.getElementById(id);
+            if (!element) {
+                console.warn(`Component container not found: ${id}`);
+                return;
+            }
+
             try {
-                const response = await fetch(`components/${file}`);
-                if (!response.ok) throw new Error(`Status: ${response.status}`);
+                const response = await fetch(`components/${file}`, {
+                    method: 'GET',
+                    headers: { 'Accept': 'text/html' }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
+                }
+                
                 const data = await response.text();
-                document.getElementById(id).innerHTML = data;
+                element.innerHTML = data;
+                console.log(`✓ Component loaded: ${file}`);
             } catch (error) {
-                console.error(`Gagal memuatkan komponen [${file}]:`, error);
-                document.getElementById(id).innerHTML = `<div style="color:#ff5555; font-size:10px; padding:10px;">> ERROR_LOADING_NODE: ${file}</div>`;
+                console.error(`✗ Failed to load component [${file}]:`, error);
+                element.innerHTML = `
+                    <div style="color:#ff5555; font-size:10px; padding:10px; border:1px solid #ff5555; border-radius:4px;">
+                        > ERROR_LOADING_COMPONENT: ${file}
+                        <br>> ${error.message}
+                    </div>
+                `;
             }
         }
 
-        // Jalankan loading semua komponen serentak sebaik sahaja tetingkap dimuatkan
-        window.onload = async () => {
-            console.log("KOPI_SEARCH: Initiating component sync...");
+        // Initialize components when window loads
+        window.addEventListener('load', async () => {
+            console.log("🍵 KOPI_SEARCH: Initiating component synchronization...");
             
-            await Promise.all([
-                loadComponent('nav-container', 'navbar.html'),
-                loadComponent('hero-container', 'hero.html'),
-                loadComponent('search-container', 'search.html'),
-                loadComponent('weather-container', 'weather.html'),
-                loadComponent('audit-container', 'audit.html')
-            ]);
+            try {
+                await Promise.all([
+                    loadComponent('nav-container', 'navbar.html'),
+                    loadComponent('hero-container', 'hero.html'),
+                    loadComponent('search-container', 'search.html'),
+                    loadComponent('weather-container', 'weather.html'),
+                    loadComponent('audit-container', 'audit.html')
+                ]);
 
-            console.log("KOPI_SEARCH: Architecture fully synchronized.");
-            
-            // Dispatch event khas untuk memberitahu main.js bahawa UI sudah sedia
-            window.dispatchEvent(new Event('componentsLoaded'));
-        };
+                console.log("✓ KOPI_SEARCH: Architecture fully synchronized.");
+                window.dispatchEvent(new CustomEvent('componentsLoaded', { detail: { timestamp: Date.now() } }));
+            } catch (error) {
+                console.error("✗ Component synchronization failed:", error);
+            }
+        }, { once: true });
+
+        // Performance monitoring
+        if ('PerformanceObserver' in window) {
+            try {
+                const observer = new PerformanceObserver((list) => {
+                    for (const entry of list.getEntries()) {
+                        console.log(`⏱️  ${entry.name}: ${entry.duration.toFixed(2)}ms`);
+                    }
+                });
+                observer.observe({ entryTypes: ['measure', 'navigation'] });
+            } catch (e) {
+                console.log('Performance monitoring not available');
+            }
+        }
     </script>
 </body>
 </html>
